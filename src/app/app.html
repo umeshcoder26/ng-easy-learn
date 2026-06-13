@@ -1,0 +1,26 @@
+<aside class="sidebar">
+  <div class="brand">
+    <h1>LearningHub</h1>
+  </div>
+
+  <nav class="nav-links">
+    <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+    <a routerLink="/tutorial" routerLinkActive="active">Tutorial</a>
+    <a routerLink="/contact" routerLinkActive="active">Contact</a>
+    <a routerLink="/about" routerLinkActive="active">About</a>
+  </nav>
+</aside>
+
+<div class="page-shell">
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">LearningHub</p>
+      <h2>LearningHub dashboard with contact support</h2>
+      <p>Learn easily with guided lessons and friendly step-by-step help.</p>
+    </div>
+  </header>
+
+  <main class="page-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

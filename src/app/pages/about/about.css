@@ -1,0 +1,33 @@
+.about-page {
+  display: flex;
+  justify-content: center;
+}
+
+.about-card {
+  width: 100%;
+  max-width: 720px;
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.08);
+}
+
+.about-card h1 {
+  margin: 0 0 1rem;
+}
+
+.about-card p {
+  margin: 0 0 1.5rem;
+  color: #475569;
+  line-height: 1.7;
+}
+
+.about-card ul {
+  padding-left: 1.25rem;
+  margin: 0;
+  color: #334155;
+}
+
+.about-card li {
+  margin-bottom: 0.75rem;
+}

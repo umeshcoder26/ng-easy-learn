@@ -1,0 +1,23 @@
+<section class="tutorial-page">
+  <div class="tutorial-card">
+    <div class="tutorial-header">
+      <div>
+        <h1>LearningHub Tutorial</h1>
+        <p>Choose a course below to start learning easy with guided mini lessons.</p>
+      </div>
+    </div>
+
+    <div class="card-grid">
+      <a routerLink="./angular" routerLinkActive="active" class="course-card">Angular</a>
+      <a routerLink="./es6" routerLinkActive="active" class="course-card">ES6</a>
+      <a routerLink="./azure" routerLinkActive="active" class="course-card">Azure</a>
+      <a routerLink="./gen-ai" routerLinkActive="active" class="course-card">Gen AI</a>
+      <a routerLink="./python" routerLinkActive="active" class="course-card">Python</a>
+      <a routerLink="./javascript" routerLinkActive="active" class="course-card">Javascript</a>
+    </div>
+
+    <div class="tutorial-detail">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</section>

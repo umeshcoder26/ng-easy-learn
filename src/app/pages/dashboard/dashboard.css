@@ -1,0 +1,85 @@
+.dashboard-page {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.hero-card {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 2rem;
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+}
+
+.hero-copy h1 {
+  margin: 0.5rem 0 1rem;
+  font-size: clamp(2rem, 2.5vw, 2.6rem);
+  color: #111827;
+}
+
+.hero-copy p {
+  margin: 0;
+  color: #475569;
+  line-height: 1.7;
+}
+
+.hero-stats {
+  display: grid;
+  gap: 1rem;
+  min-width: 220px;
+  align-content: center;
+}
+
+.stat-card {
+  background: #eef2ff;
+  border-radius: 1rem;
+  padding: 1rem 1.25rem;
+}
+
+.stat-card span {
+  display: block;
+  font-size: 2rem;
+  color: #1d4ed8;
+  font-weight: 700;
+}
+
+.stat-card p {
+  margin: 0.5rem 0 0;
+  color: #475569;
+}
+
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.tip-card {
+  padding: 1.5rem;
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.06);
+}
+
+.tip-card h3 {
+  margin: 0 0 0.75rem;
+  color: #111827;
+}
+
+.tip-card p {
+  margin: 0;
+  color: #64748b;
+  line-height: 1.7;
+}
+
+@media (max-width: 820px) {
+  .hero-card {
+    flex-direction: column;
+  }
+
+  .tips-grid {
+    grid-template-columns: 1fr;
+  }
+}

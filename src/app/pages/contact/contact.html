@@ -1,0 +1,34 @@
+<section class="contact-page">
+  <div class="contact-card">
+    <h1>Contact Us</h1>
+    <p>Send a message and we’ll respond within one business day.</p>
+
+    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+      <label>
+        Name
+        <input formControlName="name" placeholder="Your name" />
+        <span *ngIf="submitted && f['name'].invalid" class="error">
+          Name is required and must be at least 2 characters.
+        </span>
+      </label>
+
+      <label>
+        Email
+        <input formControlName="email" placeholder="you@example.com" />
+        <span *ngIf="submitted && f['email'].invalid" class="error">
+          Please enter a valid email address.
+        </span>
+      </label>
+
+      <label>
+        Message
+        <textarea formControlName="message" rows="6" placeholder="Tell us how we can help"></textarea>
+        <span *ngIf="submitted && f['message'].invalid" class="error">
+          Message must be at least 10 characters.
+        </span>
+      </label>
+
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+</section>
