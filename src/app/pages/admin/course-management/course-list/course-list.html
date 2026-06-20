@@ -1,0 +1,40 @@
+<section class="course-list-page">
+  <div class="course-list-header">
+    <div>
+      <p class="eyebrow">Courses</p>
+      <h2>Course Catalog</h2>
+      <p>Manage all available courses in one place.</p>
+    </div>
+    <div class="create-buttons">
+      <button type="button" class="button create-ai" (click)="navigateToCreate('ai')">Create with AI</button>
+      <button type="button" class="button create-manual" (click)="navigateToCreate('manual')">Build Step-by-Step</button>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="status">Loading courses…</div>
+  <div *ngIf="error" class="status error">{{ error }}</div>
+  <div *ngIf="!loading && !error && courses.length === 0" class="status">No courses available.</div>
+
+  <div *ngIf="courses.length > 0" class="course-grid-wrap">
+    <div class="course-grid-header">
+      <span>Title</span>
+      <span>Category</span>
+      <span>Level</span>
+      <span>Duration</span>
+      <span>AI Created</span>
+      <span>Actions</span>
+    </div>
+
+    <div *ngFor="let course of courses" class="course-grid-row">
+      <div>{{ course.title }}</div>
+      <div>{{ course.category }}</div>
+      <div>{{ course.level }}</div>
+      <div>{{ course.durationMinutes }} min</div>
+      <div>{{ course.isAICreated ? 'Yes' : 'No' }}</div>
+      <div class="action-group">
+        <a [routerLink]="['/admin/courses', course.id, 'edit']" class="button secondary-button">Edit</a>
+        <button type="button" class="button danger-button" (click)="onDelete(course.id, course.title)">Delete</button>
+      </div>
+    </div>
+  </div>
+</section>

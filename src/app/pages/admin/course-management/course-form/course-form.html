@@ -1,0 +1,155 @@
+<section class="course-form-page">
+  <div class="course-form-header">
+    <div>
+      <p class="eyebrow">{{ isEditMode ? 'Edit Course' : 'Add Course' }}</p>
+      <h2>{{ isEditMode ? 'Update course details' : 'Create a new course' }}</h2>
+      <p>Use the form below to manage course metadata, chapters, topics, and examples.</p>
+    </div>
+    <div class="form-header-actions">
+      <button type="button" class="button secondary-button" (click)="onCancel()">Back</button>
+    </div>
+  </div>
+
+
+
+  <div *ngIf="loading" class="status">Loading…</div>
+  <div *ngIf="error" class="status error">{{ error }}</div>
+
+  <form [formGroup]="courseForm" (ngSubmit)="onSubmit()" class="course-form" *ngIf="!loading">
+    <label>
+      Course title
+      <input formControlName="title" />
+      <span *ngIf="courseForm.controls['title'].invalid && courseForm.controls['title'].touched" class="error">
+        Title is required and must be at least 3 characters.
+      </span>
+    </label>
+
+    <label>
+      Description
+      <textarea formControlName="description" rows="4"></textarea>
+      <span *ngIf="courseForm.controls['description'].invalid && courseForm.controls['description'].touched" class="error">
+        Description is required and must be at least 10 characters.
+      </span>
+    </label>
+
+    <div class="form-grid">
+      <label>
+        Category
+        <input formControlName="category" />
+        <span *ngIf="courseForm.controls['category'].invalid && courseForm.controls['category'].touched" class="error">
+          Category is required.
+        </span>
+      </label>
+
+      <label>
+        Level
+        <select formControlName="level">
+          <option *ngFor="let level of levels" [value]="level">{{ level }}</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="form-grid">
+      <label>
+        Duration (minutes)
+        <input type="number" formControlName="durationMinutes" min="1" />
+        <span *ngIf="courseForm.controls['durationMinutes'].invalid && courseForm.controls['durationMinutes'].touched" class="error">
+          Duration is required and must be at least 1 minute.
+        </span>
+      </label>
+
+      <label class="checkbox-label">
+        <input type="checkbox" formControlName="published" />
+        Published
+      </label>
+    </div>
+
+    <div class="chapters" formArrayName="chapters">
+      <div *ngFor="let chapterCtrl of chapters.controls; let ci = index" [formGroupName]="ci" class="chapter-panel">
+        <div class="panel-header">
+          <h3>Chapter {{ ci + 1 }}</h3>
+          <button type="button" class="button danger-button" (click)="removeChapter(ci)">Remove Chapter</button>
+        </div>
+
+        <label>
+          Chapter title
+          <input formControlName="title" />
+          <span *ngIf="chapterCtrl.get('title')?.invalid && chapterCtrl.get('title')?.touched" class="error">
+            Title is required and must be at least 3 characters.
+          </span>
+        </label>
+
+        <label>
+          Summary
+          <textarea formControlName="summary" rows="3"></textarea>
+          <span *ngIf="chapterCtrl.get('summary')?.invalid && chapterCtrl.get('summary')?.touched" class="error">
+            Summary is required and must be at least 10 characters.
+          </span>
+        </label>
+
+        <div formArrayName="topics" class="topics">
+          <div *ngFor="let topicCtrl of getTopics(ci).controls; let ti = index" [formGroupName]="ti" class="topic-panel">
+            <div class="panel-header">
+              <h4>Topic {{ ti + 1 }}</h4>
+              <button type="button" class="button danger-button" (click)="removeTopic(ci, ti)">Remove Topic</button>
+            </div>
+
+            <label>
+              Topic title
+              <input formControlName="title" />
+              <span *ngIf="topicCtrl.get('title')?.invalid && topicCtrl.get('title')?.touched" class="error">
+                Title is required and must be at least 3 characters.
+              </span>
+            </label>
+
+            <label>
+              Explanation
+              <textarea formControlName="explanation" rows="4"></textarea>
+              <span *ngIf="topicCtrl.get('explanation')?.invalid && topicCtrl.get('explanation')?.touched" class="error">
+                Explanation is required and must be at least 10 characters.
+              </span>
+            </label>
+
+            <div formArrayName="examples" class="examples">
+              <div *ngFor="let exampleCtrl of getExamples(ci, ti).controls; let ei = index" [formGroupName]="ei" class="example-panel">
+                <div class="panel-header">
+                  <h5>Example {{ ei + 1 }}</h5>
+                  <button type="button" class="button danger-button" (click)="removeExample(ci, ti, ei)">Remove Example</button>
+                </div>
+
+                <label>
+                  Example code
+                  <textarea formControlName="code" rows="3"></textarea>
+                  <span *ngIf="exampleCtrl.get('code')?.invalid && exampleCtrl.get('code')?.touched" class="error">
+                    Code is required.
+                  </span>
+                </label>
+
+                <label>
+                  Example description
+                  <textarea formControlName="description" rows="2"></textarea>
+                  <span *ngIf="exampleCtrl.get('description')?.invalid && exampleCtrl.get('description')?.touched" class="error">
+                    Description is required and must be at least 10 characters.
+                  </span>
+                </label>
+              </div>
+
+              <button type="button" class="button secondary-button" (click)="addExample(ci, ti)">
+                Add Example
+              </button>
+            </div>
+          </div>
+
+          <button type="button" class="button secondary-button" (click)="addTopic(ci)">Add Topic</button>
+        </div>
+      </div>
+
+      <button type="button" class="button primary-button" (click)="addChapter()">Add Chapter</button>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="button secondary-button" (click)="onCancel()">Back</button>
+      <button type="submit" class="button primary-button" [disabled]="courseForm.invalid">Save Course</button>
+    </div>
+  </form>
+</section>

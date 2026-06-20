@@ -7,6 +7,25 @@ export const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: Dashboard },
   {
+    path: 'admin',
+    loadComponent: () => import('./pages/admin/admin').then((m) => m.Admin),
+    children: [
+      { path: '', redirectTo: 'courses', pathMatch: 'full' },
+      {
+        path: 'courses',
+        loadComponent: () => import('./pages/admin/course-management/course-list/course-list').then((m) => m.CourseList),
+      },
+      {
+        path: 'courses/new',
+        loadComponent: () => import('./pages/admin/course-management/course-form/course-form').then((m) => m.CourseForm),
+      },
+      {
+        path: 'courses/:id/edit',
+        loadComponent: () => import('./pages/admin/course-management/course-form/course-form').then((m) => m.CourseForm),
+      },
+    ],
+  },
+  {
     path: 'tutorial',
     loadComponent: () => import('./pages/tutorial/tutorial').then(m => m.Tutorial),
     children: [
