@@ -14,7 +14,7 @@ import {
 export class CourseService {
   private courses: Course[] = [
     {
-      id: 'c1',
+      id: 'angular',
       title: 'Angular Fundamentals',
       description: 'Learn the core Angular concepts and build reusable UI with standalone components.',
       category: 'Frontend',
@@ -58,7 +58,7 @@ export class CourseService {
       ],
     },
     {
-      id: 'c2',
+      id: 'es6',
       title: 'Modern JavaScript',
       description: 'Master ES6+ features and modern JavaScript patterns for web development.',
       category: 'Web',
@@ -90,7 +90,7 @@ export class CourseService {
       ],
     },
     {
-      id: 'c3',
+      id: 'python',
       title: 'Python for Automation',
       description: 'Automate everyday tasks and explore data manipulation using Python.',
       category: 'Backend',

@@ -1,0 +1,108 @@
+<section class="course-page">
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Loading course...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error && !loading" class="error-container">
+    <p class="error-message">⚠️ {{ error }}</p>
+  </div>
+
+  <!-- Course Content -->
+  <div *ngIf="course && !loading" class="course-content">
+    <!-- Header Section -->
+    <div class="course-header">
+      <div class="header-gradient"></div>
+      <div class="header-content">
+        <h1>{{ course.title }}</h1>
+        <p class="course-description">{{ course.description }}</p>
+        
+        <!-- Metadata Cards -->
+        <div class="metadata-cards">
+          <div class="meta-card">
+            <span class="meta-label">Level</span>
+            <span class="meta-value level-badge" [ngClass]="'level-' + course.level.toLowerCase()">
+              {{ course.level }}
+            </span>
+          </div>
+          <div class="meta-card">
+            <span class="meta-label">Category</span>
+            <span class="meta-value">{{ course.category }}</span>
+          </div>
+          <div class="meta-card">
+            <span class="meta-label">Duration</span>
+            <span class="meta-value">{{ course.durationMinutes }} min</span>
+          </div>
+          <div class="meta-card">
+            <span class="meta-label">Status</span>
+            <span class="meta-value" [ngClass]="course.published ? 'status-published' : 'status-draft'">
+              {{ course.published ? '✓ Published' : 'Draft' }}
+            </span>
+          </div>
+          <div class="meta-card" *ngIf="course.isAICreated">
+            <span class="meta-label">Created By</span>
+            <span class="meta-value ai-badge">🤖 AI Generated</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chapters Section -->
+    <div class="chapters-section">
+      <h2 class="section-title">📚 Course Chapters</h2>
+      
+      <div class="chapters-list">
+        <div 
+          *ngFor="let chapter of course.chapters; let i = index" 
+          class="chapter-item"
+          [class.expanded]="expandedChapter === chapter.id"
+        >
+          <button 
+            class="chapter-header"
+            (click)="toggleChapter(chapter.id)"
+            [attr.aria-expanded]="expandedChapter === chapter.id"
+          >
+            <span class="chapter-number">{{ i + 1 }}</span>
+            <div class="chapter-info">
+              <h3>{{ chapter.title }}</h3>
+              <p class="chapter-summary">{{ chapter.summary }}</p>
+            </div>
+            <span class="expand-icon">{{ expandedChapter === chapter.id ? '▼' : '▶' }}</span>
+          </button>
+
+          <!-- Chapter Content -->
+          <div class="chapter-content" *ngIf="expandedChapter === chapter.id">
+            <!-- Topics -->
+            <div class="topics-container">
+              <div *ngFor="let topic of chapter.topics; let topicIndex = index" class="topic-card">
+                <div class="topic-header">
+                  <h4>{{ topicIndex + 1 }}. {{ topic.title }}</h4>
+                </div>
+                
+                <div class="topic-explanation">
+                  <p>{{ topic.explanation }}</p>
+                </div>
+
+                <!-- Examples -->
+                <div class="examples-section" *ngIf="topic.examples.length > 0">
+                  <h5 class="examples-title">💡 Examples:</h5>
+                  <div *ngFor="let example of topic.examples; let exIndex = index" class="example-card">
+                    <p class="example-description">{{ example.description }}</p>
+                    <pre class="code-block"><code>{{ example.code }}</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Info -->
+    <div class="course-footer">
+      <p class="last-updated">Last updated: {{ course.updatedAt | date:'short' }}</p>
+    </div>
+  </div>
+</section>
